@@ -1,0 +1,4 @@
+1|1984|George Orwell|1200|No
+2|Albert Campus|Plague|400|No
+3|Matilda|Charles Dickens|600|Yes
+4|The Alchemist|Franz|1200|Yes
