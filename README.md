@@ -57,7 +57,7 @@ g++ RealProject.cpp -o library_app
 ## 🔑 Default Credentials (for Testing)
 
 * **Admin:**
-* Username: `admin`
+* Username: `admin123`
 * Password: `123` (Ensure `admin_credentials.txt` is set up)
 
 
