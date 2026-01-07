@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include <cstdio>
-#include <cstdlib> 
+#include <cstdlib>
 #include<iomanip>
 #include <chrono>
 #include <thread>
@@ -65,7 +65,7 @@ public:
 	void MainMenu() {
 		char option;
 		do {
-			welcome();
+			welcome2();
 			cout << " ---------------------------------\n";
 			slowtext("|1 to Enter library              |\n", 2);
 			slowtext("|2 to Add Books                  |\n", 2);
@@ -75,7 +75,7 @@ public:
 			slowtext("|6 to Remove Book                |\n", 2);
 			slowtext("|0 to Logout                     |\n", 2);
 			cout << " ---------------------------------\n";
-			cout << "\033[35mEnter your option: \033[0m";
+			cout << "Enter your option: ";
 
 			cin >> option;
 			cin.ignore();
@@ -150,7 +150,7 @@ public:
 				getline(file, f_avail)) {
 
 				cout << left << setw(10) << f_id
-					<< setw(30) << f_title.substr(0, 29) 
+					<< setw(30) << f_title.substr(0, 29)
 					<< setw(20) << f_author.substr(0, 19)
 					<< setw(10) << f_price
 					<< setw(10) << f_avail << endl;
@@ -170,7 +170,7 @@ public:
 				cout << "ID of this book already exists!" << endl;
 			}
 			else {
-				cin.ignore(); 
+				cin.ignore();
 				cout << "Enter Title ";
 				getline(cin, title);
 				cout << "Enter Author ";
@@ -185,6 +185,7 @@ public:
 					writeFile << ID << "|" << title << "|" << author << "|" << price << "|" << "Yes" << endl;
 					writeFile.close();
 					cout << "Book added successfully!" << endl;
+					cout << "Kindly add a txt file in 'Available_books' folder with the Same name as the Book ID" << endl;
 				}
 			}
 		}
@@ -272,7 +273,7 @@ public:
 			else {
 				remove("Books/temp.txt");
 				throw BookNotFoundException();
-				
+
 			}
 		}
 		else {
@@ -342,13 +343,11 @@ public:
 	void enterlibrary()
 	{
 		ClearScreen();
-		libraryart();
-		buybookart();
+		libraryart2();
 		char option;
 		do {
-			slowtext("[1]View book list [2]View book by page [3]Preview book [0]Exit\n", 2);
-
-			cout << "Choose your option: ";
+                buybookart();
+			slowtext("Enter your option: ",30);
 			cin >> option;
 			string key;
 			try {
@@ -360,18 +359,22 @@ public:
 					ClearScreen();
 					break;
 				case '2':
-					view_book_by_page();
-					ClearScreen();
-					break;
-				case '3':
+				    ClearScreen();
+				    libraryart2();
 					preview_book();
 					ClearScreen();
 					break;
-				case '0':
+				case '3':
+				    ClearScreen();
+        libraryart2();
+					view_book_by_page();
+					ClearScreen();
+					break;
+				case 'X':
 					cout << "Exiting ..." << endl;
 					break;
 				default:
-					cout << "invalid input";
+					cout << "Invalid input";
 					Error1();
 				}
 			}
@@ -380,7 +383,7 @@ public:
 				delay(2);
 				ClearScreen();
 			}
-		} while (option != '0');
+		} while (option != 'X');
 
 	}
 
@@ -484,7 +487,7 @@ public:
 		ifstream open(z);
 		if (!open)
 		{
-			cout << "File not opened!" << endl;
+			cout << "The txt file for this book doesnot exist." << endl;
 		}
 		int line = 0;
 		string x, y;
@@ -508,7 +511,7 @@ public:
 
 		{
 
-			cout << "not found";
+			cout << "Contents not found\n";
 
 		}
 
@@ -528,10 +531,37 @@ public:
 
 		{
 
-			cout << "not found";
+			//cout << " Contents not found";
 
 		}
+		else {
+			int lineno = 0;
 
+			open.clear();
+
+			open.seekg(0);
+
+			cout << "\033[33m ===============================================================================================================" << endl;
+			while (getline(open, y))
+
+			{
+
+				lineno++;
+
+				if (lineno >= line && lineno <= line2 - 1)
+
+				{
+
+					cout << y << endl;
+
+				}
+
+			}
+
+			cout << " ==============================================================================================================\033[0m" << endl;
+			open.close();
+		}
+		/*
 		int lineno = 0;
 
 		open.clear();
@@ -557,12 +587,14 @@ public:
 
 		cout << " ==============================================================================================================\033[0m" << endl;
 		open.close();
+		*/
 	}
 	void preview_book()
 	{
 		ClearScreen();
 		string bookId;
-		cout << "Enter book ID: ";
+		libraryart2();
+		slowtext("\033[32mEnter book ID: \033[0m",30);
 		cin >> bookId;
 
 
@@ -579,7 +611,7 @@ public:
 			if (f_id == bookId) {
 				found = true;
 			}
-			
+
 		}
 
 		readFile.close();
@@ -591,7 +623,7 @@ public:
 
 			previewbook(bookId);
 
-			cout << "\nPress any key to return to menu...";
+			slowtext("\033[32mEnter Any key to exit to menu: \033[0m");
 			string t;
 			cin >> t;
 		}
@@ -600,6 +632,7 @@ public:
 	{
 		if (type == "Guest")
 		{
+
 			cout << "Guests can only preview books.\n";
 			delay(2);
 			return;
@@ -648,7 +681,7 @@ public:
 
 			} while (choice == 'n');
 		}
-		
+
 	}
 
 
@@ -716,9 +749,20 @@ public:
 				remove("Books/Lists.txt");
 				rename("Books/temp.txt", "Books/Lists.txt");
 
+				try {
+					string path = "Available books/" + bookId + ".txt";
+					if (remove(path.c_str()) != 0) {
+						throw "The text file of this Book was not found";
+					}
+					
+				}
+				catch (const char* e) {
+					cout << e << endl;
+				}
+
 			}
 
-			
+
 
 		}
 		else{
@@ -843,7 +887,7 @@ public:
 		slowtext("\t\033[40m[f] Register new user\033[0m\n", 5);
 		slowtext("\n\t\t\t\t\033[41m[x] Leave library\033[0m\n", 5);
 
-		cout << "\n\033[35mEnter your option: \033[0m";
+		cout << "\nEnter your option: ";
 		cin >> option;
 		cout << "\033\0m";
 		cin.ignore();
@@ -887,10 +931,10 @@ public:
 	}
 
 	bool RegularUser() {
-		cout << "RRegular User" << endl;
+		cout << "\033[31mRegular User" << endl;
 		cout << "Enter username: " << endl;
 		cin >> username;
-		cout << "\nEnter Password: " << endl;
+		cout << "\nEnter Password: \033[0m" << endl;
 		cin >> password;
 
 		bool matched = CheckCredentailsUser(username, password);
@@ -912,12 +956,12 @@ public:
 
 	}
 	bool Admin() {
-		cout << "\nAAdmin User" << endl;
+		cout << "\n\033[32mAAdmin User" << endl;
 		cout << "Enter username: " << endl;
 		cin >> username;
 		cout << "\nEnter Password: " << endl;
 		cin >> password;
-
+        cout<<"\033[0m";
 		bool matched = CheckCredentailsAdmin(username, password);
 
 		if (matched == true) {
@@ -937,8 +981,9 @@ public:
 	void Register() {
 		bool checked;
 		do {
-			cout << "Enter username" << endl;
+			slowtext("\033[32mEEnter username: ",30);
 			cin >> username;
+			cout<<"\033[0m";
 			checked = AlreadyExists(username);
 			if (checked == true) {
 				cout << "Username Already Exists" << endl;
