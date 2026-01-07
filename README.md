@@ -152,8 +152,8 @@ To test the system immediately, use these pre-configured accounts:
 
 | Role | Username | Password | Notes |
 | --- | --- | --- | --- |
-| **Admin** | `admin` | `123` | Can add/remove books |
-| **User** | `user1` | `pass` | Can buy books (Balance: 500) |
+| **Admin** | `admin123` | `123` | Can add/remove books |
+| **User** | `wajih` | `123` | Can buy books (Balance: 500) |
 
 ---
 
