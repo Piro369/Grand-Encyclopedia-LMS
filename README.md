@@ -1,5 +1,4 @@
 
-```markdown
 # 📚 Grand Encyclopedia - Advanced Library Management System
 
 ![C++](https://img.shields.io/badge/Language-C++-blue.svg)
