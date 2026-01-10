@@ -165,11 +165,54 @@ The project avoids standard crashes by implementing custom Exception classes def
 * Windows OS (Required for `system("cls")` command).
 * Any C++ Compiler (MinGW, Visual Studio, etc.).
 
+---
+
+## 📂 Code Documentation & Function Explanations
+
+### **Class: `LibraryDB` (Backend Database)**
+
+* **`check_ID_exists(ID)`**: Scans the database file to see if a book with the given ID actsually exists.
+
+### **Class: `libart` (Visuals)**
+
+* **`libraryart()`**: Displays the main ASCII art logo for the library.
+* **`slowtext(text, delay)`**: Prints text one character at a time to create a "typing" animation effect.
+* **`welcome()`**: Displays the globe animation and the "Welcome to Grand Encyclopedia" header.
+
+### **Class: `Library` (Main Logic)**
+
+* **`MainMenu()`**: The central hub that shows options (Add, Buy, View) based on whether the user is an Admin or Regular User.
+* **`view_book_lists()`**: Reads the book file and displays all available books in a neat table.
+* **`add_Books()`**: *(Admin Only)* Asks for book details and saves a new book to the database file.
+* **`purchase_book()`**: *(User Only)* Processes a purchase by checking if the book is available and if the user has enough money.
+* **`deduct_user_money(price)`**: A helper function that subtracts the book cost from the user's saved balance in the text file.
+* **`enterlibrary()`**: Opens the reading menu where users can read or preview books.
+* **`bookbypage(bookId)`**: Reads a specific book file and displays text only between specific page markers (e.g., "Page 1").
+* **`preview_book()`**: Shows the "Contents" section of a book file to let users see what it is about.
+* **`removeBook()`**: *(Admin Only)* Deletes a specific book from the database by ID.
+* **`deposit_amount()`**: *(User Only)* Allows a user to add virtual money to their account balance.
+* **`view_Balance()`**: Finds the logged-in user in the file and prints their current money.
+
+### **Class: `Login` (Authentication)**
+
+* **`authenticate()`**: The starting screen that asks if you are an Admin, User, or Guest.
+* **`RegularUser()`**: Handles the login process for normal members (checks username/password).
+* **`Admin()`**: Handles the login process for administrators.
+* **`Register()`**: Creates a new user account and saves it to the credentials file with a default balance.
+* **`ForgotPasswordUser()`**: Allows a user to reset their password if they know their username.
+* **`CheckCredentailsUser()`**: Verifies if the entered username and password match the records in the file.
+* **`AlreadyExists()`**: Checks if a username is already taken during registration.
+
+### **Exceptions**
+
+* **`FileException`**: Triggers an error message if the database files are missing.
+* **`BookNotFoundException`**: Triggers an error message if a user tries to access a Book ID that doesn't exist.
+
 ### Step-by-Step Guide
 
 1. **Clone the Repo:**
 ```bash
-git clone [https://github.com/YourUsername/Grand-Encyclopedia-LMS.git](https://github.com/YourUsername/Grand-Encyclopedia-LMS.git)
+git clone [https://github.com/Piro369/Grand-Encyclopedia-LMS.git](https://github.com/Piro369/Grand-Encyclopedia-LMS.git)
 
 ```
 
@@ -178,7 +221,7 @@ git clone [https://github.com/YourUsername/Grand-Encyclopedia-LMS.git](https://g
 Make sure the `Books` folder exists and contains `Lists.txt`.
 ```text
 /Grand-Encyclopedia-LMS
-├── main_2.cpp
+├── main.cpp
 ├── Header.h
 └── Books/
     └── Lists.txt
@@ -188,7 +231,7 @@ Make sure the `Books` folder exists and contains `Lists.txt`.
 
 3. **Compile:**
 ```bash
-g++ main_2.cpp -o library_app
+g++ main.cpp -o library_app
 
 ```
 
