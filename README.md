@@ -24,20 +24,77 @@ The system uses **Multiple Inheritance** to separate database logic from UI logi
 
 ```mermaid
 classDiagram
+    %% Base Database Class
     class LibraryDB {
-        +check_ID_exists()
+        #check_ID_exists(string param_ID) bool
     }
+
+    %% UI & Art Class (from Header.h)
     class libart {
-        +libraryart()
-        +slowtext()
+        #libraryart() void
+        #bookart() void
+        #globeart() void
+        #welcome() void
+        #slowtext(string text, int delay) void
     }
+
+    %% Main Logic Class
     class Library {
         -string loggedin_Username
-        +add_Books()
-        +purchase_book()
+        -string ID
+        -string title
+        -string author
+        -string price
+        -string type
+        +Library(string t, string l)
+        +MainMenu() void
+        +view_book_lists() void
+        +add_Books() void
+        +purchase_book() void
+        +deduct_user_money(double price) bool
+        +enterlibrary() void
+        +bookbypage(string bookId) void
+        +previewbook(string bookId) void
+        +preview_book() void
+        +view_book_by_page() void
+        +removeBook() void
+        +deposit_amount() void
+        +view_Balance() void
     }
+
+    %% Authentication Class
+    class Login {
+        -string username
+        -string password
+        +string current_user_session
+        +authenticate() string
+        +RegularUser() bool
+        +Admin() bool
+        +Guest() void
+        +Register() void
+        +ForgotPasswordUser() void
+        +ForgotPasswordAdmin() void
+        +SavetoFile(string username, string password) void
+        +AlreadyExists(string username) bool
+        +CheckCredentailsUser(string u, string p) bool
+        +CheckCredentailsAdmin(string u, string p) bool
+    }
+
+    %% Exception Handling Classes
+    class FileException {
+        +getMessage() string
+    }
+
+    class BookNotFoundException {
+        +getMessage() string
+    }
+
+    %% Relationships
     LibraryDB <|-- Library
     libart <|-- Library
+    libart <|-- Login
+    Library ..> FileException : Throws
+    Library ..> BookNotFoundException : Throws
 
 ```
 
