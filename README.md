@@ -169,7 +169,7 @@ The project avoids standard crashes by implementing custom Exception classes def
 
 ## 👥 Project Team & Technical Contributions
 
-### **Wajih**
+### **Wajih Ul Hassan**
 **Role:** System Architect & Integration Lead
 * **Core Responsibility:** Spearheaded the debugging of the central application loop and the integration of disparate modules (Login, Library, and Database).
 * **Technical Contributions:**
