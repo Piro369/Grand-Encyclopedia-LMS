@@ -167,6 +167,42 @@ The project avoids standard crashes by implementing custom Exception classes def
 
 ---
 
+## 👥 Project Team & Technical Contributions
+
+### **Wajih**
+**Role:** System Architect & Integration Lead
+* **Core Responsibility:** Spearheaded the debugging of the central application loop and the integration of disparate modules (Login, Library, and Database).
+* **Technical Contributions:**
+    * Structured the `Library` class inheritance hierarchy, ensuring seamless communication between the backend (`LibraryDB`) and frontend (`libart`).
+    * Implemented the administrative logic for `add_Books()` and `removeBook()`, ensuring the database integrity is maintained during file write operations.
+    * Managed the global exception handling strategy to prevent system crashes during runtime errors.
+
+### **Ramis**
+**Role:** Frontend Developer & Content Systems Engineer
+* **Core Responsibility:** Designed the immersive console-based User Interface and developed the core file-reading algorithms for book consumption.
+* **Technical Contributions:**
+    * Developed the `libart` class in `Header.h`, creating complex ASCII visuals (`libraryart`, `globeart`) and the `slowtext()` animation engine.
+    * Engineered the `bookbypage()` algorithm, which parses text files dynamically to display specific content between page markers.
+    * Implemented the `preview_book()` functionality to allow secure, read-only access for Guest users.
+
+### **Zohaib Iqbal**
+**Role:** Security Specialist & Authentication Engineer
+* **Core Responsibility:** Built the robust `Login` class to handle multi-tier user access (Admin, User, Guest) and secure session management.
+* **Technical Contributions:**
+    * Designed the `authenticate()` logic to route users to specific interfaces based on their credentials.
+    * Implemented file-stream logic for `Register()` and `CheckCredentailsUser()` to securely read/write user data to `regular_user_credentials.txt`.
+    * Created the "Forgot Password" recovery mechanism (`ForgotPasswordUser`), utilizing a search-and-update file algorithm.
+
+### **Mustafa Imran**
+**Role:** Financial Systems Manager
+* **Core Responsibility:** Developed the internal economy of the library, managing the digital wallet system and transaction validation.
+* **Technical Contributions:**
+    * Programmed the `deduct_user_money()` algorithm, which performs real-time balance checks before authorizing purchases.
+    * Implemented the `purchase_book()` transaction logic, which simultaneously updates the user's balance and the book's availability status in `Lists.txt`.
+    * Created the `deposit_amount()` feature, enabling persistent balance updates across user sessions.
+ 
+---
+
 ## 📂 Code Documentation & Function Explanations
 
 ### **Class: `LibraryDB` (Backend Database)**
